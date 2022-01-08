@@ -1,11 +1,23 @@
-import express from "express";
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
-const app = express();
 
-app.get("/api/blogs", (_req, res) => {
-  res.send("hello world");
-});
+dotenv.config({ path: './config.env' });
 
-app.listen(3000, () => {
-  console.log("Server is Running!");
+import app from './app.js';
+
+const DB = process.env.DATABASE.replace(
+  '<PASSWORD>',
+  process.env.DATABASE_PASSWORD
+);
+
+mongoose
+  .connect(DB)
+  .then(() => console.log('DB connection successful!'));
+
+
+
+const port = process.env.PORT || 9000;
+const server = app.listen(port, () => {
+  console.log(`App running on port ${port}...`);
 });
