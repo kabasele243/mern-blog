@@ -64,6 +64,7 @@ app.use(
 app.use(compression());
 
 app.use('/api/posts', posts)
+// app.use('/api/users', users)
 
 app.all('*', (req, res, next) => {
   next(`Can't find ${req.originalUrl} on this server!`);
